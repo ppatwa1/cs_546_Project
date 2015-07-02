@@ -42,6 +42,10 @@
   <link rel="stylesheet" href="../css/manualTemplate.css">
  </head>
  <body>
+ <div id="logoutBox">
+		<a id="logout" href="../html/welcome.html" class="">Welcome page</a>
+		<a id="logout" href="../php/logout.php" class="">Logout</a>
+	</div>
  	<div class="container">
  		<div class="container_upload"/>
 		<div class="contr"><h2>Please fill the contact details</h2></div>

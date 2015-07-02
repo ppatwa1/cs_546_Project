@@ -5,9 +5,11 @@
 		die("Error login failed.");
 	} else {
 		if (login()) {
+			session_start();
+			$_SESSION['username'] = trim ( $_POST ['username'] );
 			header ( "Location: ../html/welcome.html" );
 		} else
-			echo("Invalid login");
+			header ( "Location: ../html/login.html" );
 	}
 	
 	function login() {

@@ -6,7 +6,7 @@
         <link rel="stylesheet" type="text/css" href="../css/welcome.css" />
     </head>
     <body>
-	<a id="logout" href="" class="">Logout</a>
+	<a id="logout" href="../php/logout.php" class="">Logout</a>
         <div class="container">
             <header>
                 <h1>Welcome <?php echo(strtoupper($_SESSION['username'])); ?></h1>
@@ -17,7 +17,7 @@
                         <h3>Please select from the below options to add contacts</h3>
 
                    <div id="content">
-					   <a href="manualTemplate.php" class="leftNav buttonAnchor">Manual Template</a>
+					   <a href="../php/manualTemplate.php" class="leftNav buttonAnchor">Manual Template</a>
 					   <a href="uploadTemplate.html" class="rightPara buttonAnchor">File Upload</a>
 					</div> 
                 </div>  

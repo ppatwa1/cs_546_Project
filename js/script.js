@@ -26,18 +26,17 @@ function bytesToSize(bytes) {
 };
 
 function fileSelected() {
-
+	
     // hide different warnings
-    document.getElementById('upload_response').style.display = 'none';
+	document.getElementById('upload_response').style.display = 'none';
     document.getElementById('error').style.display = 'none';
     document.getElementById('error2').style.display = 'none';
     document.getElementById('abort').style.display = 'none';
     document.getElementById('warnsize').style.display = 'none';
     document.getElementById('uploadbtn').style.display = 'block';
-
+    
     // get selected file element
     var oFile = document.getElementById('selected_file').files[0];
-
     // little test for filesize
     if (oFile.size > iMaxFilesize) {
         document.getElementById('warnsize').style.display = 'block';
@@ -45,7 +44,6 @@ function fileSelected() {
         
         return;
     }
-
 
     // prepare HTML5 FileReader
     var oReader = new FileReader();
@@ -64,6 +62,7 @@ function startUploading() {
     document.getElementById('error2').style.display = 'none';
     document.getElementById('abort').style.display = 'none';
     document.getElementById('warnsize').style.display = 'none';
+    
     document.getElementById('progress_percent').innerHTML = '';
     var oProgress = document.getElementById('progress');
     oProgress.style.display = 'block';

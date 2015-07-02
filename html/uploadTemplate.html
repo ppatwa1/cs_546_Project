@@ -7,15 +7,19 @@
         <script src="../js/script.js"></script>
     </head>
     <body>
+	<div id="logoutBox">
+		<a id="logout" href="../html/welcome.html" class="">Welcome page</a>
+		<a id="logout" href="../php/download.php" class="">Download Sample Template</a>
+		<a id="logout" href="../php/logout.php" class="">Logout</a>
+	</div>
         <div class="container">
             <div class="contr"><h2>You can select the file (csv) and click Upload button</h2></div>
 			<div class="container_upload"/> 
             <div class="upload_form_cont">
-                <form id="upload_form" enctype="multipart/form-data" method="post" action="../php/upload.php">
+                <form id="upload_form" enctype="multipart/form-data" method="post" action="php/upload.php">
                     <div>
                         <div><label for="selected_file">Please select csv template</label></div>
                         <div><input type="file" name="myFile" id="selected_file" onchange="fileSelected();" accept="*.csv"/></div>
-                        <input type="hidden" name="MAX_FILE_SIZE" value="10" />
                     </div>
                     <div id="uploadbtn">
                         <input type="button" value="Upload" onclick="startUploading()" />
@@ -29,7 +33,7 @@
                     <div id="error">You should select valid csv files only!</div>
                     <div id="error2">An error occurred while uploading the file</div>
                     <div id="abort">The upload has been canceled by the user or the browser dropped the connection</div>
-                    <div id="warnsize">File selected for upload exceeds the max allowed size of 10MB.</div>
+                    <div id="warnsize">File size exceeds maximum allowed size of 10MB.</div>
 
                     <div id="progress_info">
                         <div id="progress"></div>
@@ -41,6 +45,7 @@
                         </div>
                         <div id="upload_response"></div>
                     </div>
+                    <input type=hidden name="MAX_FILE_SIZE" value="10">
                 </form>
 
                 <img id="preview" />

@@ -186,5 +186,8 @@ a{
 #logout{
 	color: rgb(95, 155, 198);
 	text-decoration: underline;
-	margin-left: 96%;
+	margin-left: 76%;
+}
+#logoutBox{
+	margin-left:61%;
 }
