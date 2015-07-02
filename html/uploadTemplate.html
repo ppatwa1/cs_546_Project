@@ -1,0 +1,51 @@
+
+<html lang="en" >
+    <head>
+        <meta charset="utf-8" />
+        <title>Contacts File Upload</title>
+        <link href="../css/uploadTemplate.css" rel="stylesheet" type="text/css" />
+        <script src="../js/script.js"></script>
+    </head>
+    <body>
+        <div class="container">
+            <div class="contr"><h2>You can select the file (csv) and click Upload button</h2></div>
+			<div class="container_upload"/> 
+            <div class="upload_form_cont">
+                <form id="upload_form" enctype="multipart/form-data" method="post" action="../php/upload.php">
+                    <div>
+                        <div><label for="selected_file">Please select csv template</label></div>
+                        <div><input type="file" name="myFile" id="selected_file" onchange="fileSelected();" accept="*.csv"/></div>
+                        <input type="hidden" name="MAX_FILE_SIZE" value="10" />
+                    </div>
+                    <div id="uploadbtn">
+                        <input type="button" value="Upload" onclick="startUploading()" />
+                    </div>
+                    <div id="fileinfo">
+                        <div id="filename"></div>
+                        <div id="filesize"></div>
+                        <div id="filetype"></div>
+                        <div id="filedim"></div>
+                    </div>
+                    <div id="error">You should select valid csv files only!</div>
+                    <div id="error2">An error occurred while uploading the file</div>
+                    <div id="abort">The upload has been canceled by the user or the browser dropped the connection</div>
+                    <div id="warnsize">File selected for upload exceeds the max allowed size of 10MB.</div>
+
+                    <div id="progress_info">
+                        <div id="progress"></div>
+                        <div id="progress_percent">&nbsp;</div>
+                        <div class="clear_both"></div>
+                        <div>
+                            <div id="b_transfered">&nbsp;</div>
+                            <div class="clear_both"></div>
+                        </div>
+                        <div id="upload_response"></div>
+                    </div>
+                </form>
+
+                <img id="preview" />
+            </div>
+        </div>
+		</div>
+    </body>
+</html>

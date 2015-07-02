@@ -1,8 +1,8 @@
 <?php
-session_start();
-define ( "UPLOAD_DIR", "/Users/aditi/php/mappingtool/uploads/" );
+
 include('../model/TempContact.php');
-global $name;
+require_once("SQlConnector.php");
+require_once("config.php");
 
 function readCSV($csvFile){
 	$file_handle = fopen($csvFile,'r');
@@ -14,17 +14,6 @@ function readCSV($csvFile){
 }//end of the readCSV function
 
 
-function getDatabaseConnection(){
-	$servername = "127.0.0.1";
-	$username = "aditi";
-	$password = "@diti2618";
-	$dbname = "Mapping_Tool";
-
-	// Create connection
-	$conn = new mysqli($servername, $username, $password,$dbname);
-	return $conn;
-}
-
 function insertData($conn,$contacts,$filename){
 	foreach($contacts as $contact){
 		$insertSql = "INSERT INTO contacts_dump(`src_id`, `src_con_id`, `con_first_name`, 
@@ -35,8 +24,8 @@ function insertData($conn,$contacts,$filename){
 							$contact->con_middle_name."','".$contact->con_last_name."','".$contact->con_salutation."','".$contact->con_phone_no."','".
 							$contact->con_fax_no."','".$contact->con_country."','".$contact->con_zipcode."','".$contact->con_email."',
 							STR_TO_DATE('$contact->con_created_date', '%c/%d/%y'),'test');";
-		if($conn -> query($insertSql) === FALSE)
-			echo "Error: " . $insertSql . "<br>" . $conn->error;
+		if(execSQL($conn, $insertSql) === FALSE)
+			die("Error: " . $insertSql . "<br>" . $conn->error);
 	}
 	
 }
@@ -54,9 +43,8 @@ if (! empty ( $_FILES ["myFile"] )) {
 	  
 	// check for file size
 	
-	if ($_FILES ["myFile"] ["size"] > $_POST ["MAX_FILE_SIZE"]) {
-		echo "<p>File size exceeds 2MB.</p>";
-		exit ();
+	if (($_FILES ["myFile"] ["size"]/1024*1024) > $_POST ["MAX_FILE_SIZE"]) {
+		die("<p>File exceeded in size<p>");
 	}
 	
 	// ensure a safe filename
@@ -77,8 +65,7 @@ if (! empty ( $_FILES ["myFile"] )) {
 		$csvFile = UPLOAD_DIR.$name;
 		
 		if (! $success) {
-			echo "<p>Unable to save file.</p>";
-			exit (); 	
+			die("<p>Unable to save file.</p>"); 	
 		}
 		else{
 			// set proper permissions on the new file
@@ -103,14 +90,18 @@ if (! empty ( $_FILES ["myFile"] )) {
 		 		array_push($contacts,$contact);
 		 	}
 		 	
-		 		$conn = getDatabaseConnection();
+		 	$conn = getDBConnection();
+		 	if(!$conn){
+		 		die("unable to connect to the database");
+		 	}
+		 	else{
 		 		insertData($conn,$contacts,$filename);
-		 	
+		 	}
 		 	
 	}//end of else loop for success
 			
 	}  // end of the extension if loop
-else {
+	else {
 		echo "Invalid file type or size exceeds the limit";
 	}
 	

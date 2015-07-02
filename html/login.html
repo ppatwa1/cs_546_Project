@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>Mapping Tool</title> 
+        <meta name="description" content="Mapping Tool Login Page" />
+        <link rel="stylesheet" type="text/css" href="../css/login.css" />
+        <link rel="stylesheet" type="text/css" href="../css/animate-custom.css" />
+    </head>
+    <body>
+        <div class="container">
+            <header>
+                <h1>Mapping Tool Login</h1>
+            </header>
+            <section>				
+                <div id="container_login" >
+                    <div id="wrapper">
+                        <div id="login" class="animate form">
+                            <form  action="../php/Login.php" method="post" autocomplete="on"> 
+                                <h1>Log in</h1> 
+                                <p> 
+                                    <label for="username" class="uname" data-icon="u" > Username </label>
+                                    <input id="username" name="username" required="required" type="text" placeholder="myusername"/>
+                                </p>
+                                <p> 
+                                    <label for="password" class="youpasswd" data-icon="p"> Password </label>
+                                    <input id="password" name="password" required="required" type="password" placeholder="eg. X8df!90EO" /> 
+                                </p>
+                                <p class="login button"> 
+                                    <input type="submit" value="Login" name ="submit" /> 
+								</p>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>  
+            </section>
+        </div>
+    </body>
+</html>
