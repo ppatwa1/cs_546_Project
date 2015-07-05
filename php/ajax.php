@@ -3,9 +3,7 @@
 	$obj = new ajax_table();
 
 	if(isset($_POST) && count($_POST)){
-		
-		
-
+				
 		$action = $_POST['action'];
 		unset($_POST['action']);
 

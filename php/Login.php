@@ -1,5 +1,5 @@
  <?php
-	require_once ("../php/SQlConnector.php");
+	require_once ("SQlConnector.php");
 	
 	if (! (isset ( $_POST ['submit'] ))) {
 		die("Error login failed.");
@@ -7,9 +7,14 @@
 		if (login()) {
 			session_start();
 			$_SESSION['username'] = trim ( $_POST ['username'] );
-			header ( "Location: ../html/welcome.html" );
+			
+			if($_POST ['username'] == 'admin'){
+			header ( "Location: AdminTemplate.php" );}
+			else{
+				header ( "Location: Welcome.php" );
+			}	
 		} else
-			header ( "Location: ../html/login.html" );
+			header ( "Location: ../html/Login.html" );
 	}
 	
 	function login() {

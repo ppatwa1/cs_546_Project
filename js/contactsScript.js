@@ -1,4 +1,4 @@
-	
+ 	
 // init variables
 var trcopy;
 var editing = 0;
@@ -8,24 +8,10 @@ var editingtdcol = 0;
 var inputs = ':checked,:selected,:text,textarea';
 
 $(document).ready(function(){
-
-	// set images for edit and delete 
-	$(".eimage").attr("src",editImage);
-	$(".dimage").attr("src",deleteImage);
-
 	// init table
-	blankrow = '<tr valign="top" class="inputform">';
-	for(i=0;i<columns.length;i++){
-		// Create input element as per the definition
-		input = createInput(i,"");
-		blankrow += '<td class="ajaxReq">'+input+'</td>';
-	}
-	//blankrow += '<td><a href="javascript:;" class="'+savebutton+'"><img src="'+saveImage+'"></a></td></tr>';
-	
-	// append blank row at the end of table
-	$("."+table).append(blankrow);
-	
+	addNewRow();
 });
+
 addNewRow = function(){
 	blankrow = '<tr valign="top" class="inputform">';
 	for(i=0;i<columns.length;i++){
@@ -33,13 +19,29 @@ addNewRow = function(){
 		input = createInput(i,"");
 		blankrow += '<td class="ajaxReq">'+input+'</td>';
 	}
-	//blankrow += '<td><a href="javascript:;" class="'+savebutton+'"><img src="'+saveImage+'"></a></td></tr>';
 	
 	// append blank row at the end of table
 	$("."+table).append(blankrow);
 }
+
+deleteSelectedRow = function(){
+	var table = document.getElementById("contactsTable").tBodies[0];
+	var rowCount = table.rows.length;
+
+	// var i=1 to start after header
+	for(var i=1; i<rowCount; i++) {
+		var row = table.rows[i];
+		// index of td contain checkbox is 9
+		var chkbox = row.cells[9].getElementsByTagName('input')[0];
+		if('checkbox' == chkbox.type && true == chkbox.checked) {
+			table.deleteRow(i);
+		 }
+	}
+}
+
 uploadContacts = function(){
 	//upload the contacts from here
+	var check = document.getElementById();
 }
 
 createInput = function(i,str){
@@ -48,10 +50,14 @@ createInput = function(i,str){
 		input = '<input type='+inputType[i]+' name='+columns[i]+' placeholder="'+placeholder[i]+'" value='+str+' >';
 	}else if(inputType[i] == "textarea"){
 		input = '<textarea name='+columns[i]+' placeholder="'+placeholder[i]+'">'+str+'</textarea>';
+	}else if(inputType[i] == "checkbox"){
+		input = '<input type='+inputType[i]+' name='+columns[i]+' value='+str+' >';
+		
 	}
 	return input;
 }
 
+/*
 ajax = function (params,action){
 	$.ajax({
 		type: "POST", 
@@ -130,3 +136,4 @@ ajax = function (params,action){
 		}
 	});
 }
+*/

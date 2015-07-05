@@ -3,6 +3,7 @@ body{
 	font-family: Cambria, Palatino, "Palatino Linotype", "Palatino LT STD", Georgia, serif;
 	background: #fff url(../images/bg.jpg) repeat top left;
 	font-weight: 400;
+	font-size: 15px;
 	color: #1d3c41;
 	overflow-y: scroll;
 }
@@ -183,11 +184,13 @@ a{
     font-size: 14pt;
     padding: 5px 10px;
 }
+
 #logout{
 	color: rgb(95, 155, 198);
 	text-decoration: underline;
-	margin-left: 76%;
 }
 #logoutBox{
-	margin-left:61%;
+	margin-left:91%;
+}
+
 }
