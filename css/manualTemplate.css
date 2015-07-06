@@ -165,13 +165,11 @@ a{
 }
 
 .leftNav {
-    width:200px;
     float:left;
     border: 1px solid;
 }
 
 .rightPara{
-    margin-left:210px;
     float:right;
     border: 1px solid;
 }
@@ -193,4 +191,3 @@ a{
 	margin-left:91%;
 }
 
-}
