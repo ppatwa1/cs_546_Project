@@ -28,8 +28,7 @@ class ajax_table {
 			}
 			
 			return $this->records;
-		} else
-			echo "No records found";
+		} 
 	}
 	
 	function save($data) {
