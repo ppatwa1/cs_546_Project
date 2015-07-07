@@ -48,7 +48,18 @@ selectAllRows = function(){
 		 }
 	}
 }
-
+delectAllRows = function(){
+	var table = document.getElementById("contactsTable");
+	var rowLength = table.rows.length;
+	for(var i=rowLength-1; i>0; i-=1){
+	  var row = table.rows[i];
+	  var cellLength = row.cells.length;
+	  var chkbox = row.cells[11].getElementsByTagName('input')[0];
+	  if('checkbox' == chkbox.type) {
+			chkbox.checked = false;
+		 }
+	}
+}
 
 uploadContacts = function(){
 	//upload the contacts from here
