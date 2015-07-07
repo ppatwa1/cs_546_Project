@@ -1,17 +1,45 @@
-<?php
-include ('../model/TempContact.php');
-require_once ("SQLConnector.php");
-require_once ("Config.php");
-session_start ();
-
+	<?php
+	include ('../model/TempContact.php');
+	require_once ("SQLConnector.php");
+	require_once ("Config.php");
+	session_start ();
+	
 	function readCSV($csvFile) {
 		$file_handle = fopen ( $csvFile, 'r' );
 		while ( ! feof ( $file_handle ) ) {
-			$line_of_text [] = fgetcsv ($file_handle);
+			$line_of_text [] = fgetcsv ( $file_handle );
 		} // end of while loop
 		fclose ( $file_handle );
 		return $line_of_text;
 	} // end of the readCSV function
+	
+	function validateContact($contact) {
+		
+		if (strlen ( trim ( $contact->src_con_id ) ) > 45)
+			return false;
+		if (strlen ( trim ( $contact->con_first_name ) ) > 100)
+			return false;
+		if (strlen ( trim ( $contact->con_middle_name ) ) > 25)
+			return false;
+		if (strlen ( trim ( $contact->con_last_name ) ) > 100)
+			return false;
+		if (strlen ( trim ( $contact->con_salutation ) ) > 5)
+			return false;
+		if (strlen ( trim ( $contact->con_phone_no ) ) > 15 || ! preg_match ("/[0-9]/", $contact->con_phone_no ))
+			return false;
+		if (strlen ( trim ( $contact->con_fax_no ) ) > 15 || ! preg_match ("/[0-9]/", $contact->con_fax_no ))
+			return false;
+		if (strlen ( trim ( $contact->con_country ) ) > 50)
+			return false;
+		if (strlen ( trim ( $contact->con_zipcode ) ) > 11 || ! preg_match ("/[0-9]/", $contact->con_zipcode ))
+			return false;
+		if (strlen ( trim ( $contact->con_email ) ) > 50 || ! filter_var ( $contact->con_email, FILTER_VALIDATE_EMAIL ))
+			return false;
+		if (strlen ( trim ( $contact->con_created_date ) ) > 8)
+			return false;
+		
+		return true;
+	}
 	
 	if (! empty ( $_FILES ["myFile"] )) {
 		$myFile = $_FILES ["myFile"];
@@ -53,83 +81,55 @@ session_start ();
 				exit ();
 			} else {
 				// set proper permissions on the new file
-				chmod ( $csvFile, 0644 );	
+				chmod ( $csvFile, 0644 );
 				$csv = readCSV ( $csvFile ); // $csv is a array
-				$headers = array_shift($csv);
-				$contacts = array();
-				foreach($csv as $rowValues) {
-					$contact = new TempContact ();
-					$contact->con_salutation = $rowValues [0];
-					$contact->con_first_name = $rowValues [1];
-					$contact->con_middle_name = $rowValues [2];
-					$contact->con_last_name = $rowValues [3];
-					$contact->con_email = $rowValues [4];
-					$contact->con_phone_no = $rowValues [5];
-					$contact->con_fax_no = $rowValues [6];
-					$contact->con_src_con_id = $rowValues [7];
-					$contact->con_zipcode = $rowValues [8];
-					$contact->con_country = $rowValues [9];
-					$contact->con_created_date = $rowValues [10];
-					$contact->src_id = $_SESSION ['username'];
-					$contact->con_created_by = $_SESSION ['username'];
-					array_push ( $contacts, $contact );
-				}
+				$headers = array_shift ( $csv );
+				if (count ( $headers ) != 11)
+					die ( "File Invalid" );
 				
-				$DBResource = getDBConnection();
-				insertData ($DBResource, $contacts);
-				closeDBConnection($DBResource);
-				
-				// Read data from jva_contacts table and store it in a object
-				$jva_data = array ();
-				$jvaQuery = "SELECT * FROM jva_contacts";
-				$DBResource = getDBConnection ();
-				$jva_resultSet = execSQL ( $DBResource, $jvaQuery );
-				if ($jva_resultSet->num_rows > 0) {
-					while ( $jva_r = mysql_fetch_row ( $jva_resultSet ) ) {
-						$jva_row = new TempContact ();
-						$jva_row->jva_id = $jva_r [0];
-						$jva_row->jva_first_name = $jva_r [1];
-						$jva_row->jva_middle_name = $jva_r [2];
-						$jva_row->jva_last_name = $jva_r [3];
-						$jva_row->jva_salutation = $jva_r [4];
-						$jva_row->jva_phone_no = $jva_r [5];
-						$jva_row->jva_fax_no = $jva_r [6];
-						$jva_row->jva_country = $jva_r [7];
-						$jva_row->jva_zipcode = $jva_r [8];
-						$jva_row->jva_email = $jva_r [9];
-						array_push ( $jva_data, $jva_row );
+				$contacts = array ();
+				$recordsInvalid = false;
+				foreach ( $csv as $rowValues ) {
+					
+					if (! empty ( $rowValues )) {
+						$contact = new TempContact ();
+						$contact->con_salutation = $rowValues [0];
+						$contact->con_first_name = $rowValues [1];
+						$contact->con_middle_name = $rowValues [2];
+						$contact->con_last_name = $rowValues [3];
+						$contact->con_email = $rowValues [4];
+						$contact->con_phone_no = $rowValues [5];
+						$contact->con_fax_no = $rowValues [6];
+						$contact->con_src_con_id = $rowValues [7];
+						$contact->con_zipcode = $rowValues [8];
+						$contact->con_country = $rowValues [9];
+						$contact->con_created_date = $rowValues [10];
+						if (is_null ( $contact->con_created_date ) || empty($contact->con_created_date))
+							$contact->con_created_date = date ( "m/d/y" );
+						$contact->src_id = $_SESSION ['username'];
+						$contact->con_created_by = $_SESSION ['username'];
+						
+						if (validateContact ( $contact ))
+							array_push ( $contacts, $contact );
+						else 
+							$recordsInvalid = true;;
 					}
 				}
-				closeDBConnection($DBResource);
 				
-				// Read data from contacts_dump for the current file that was uploaded for matching
-				/*$contacts_data = array ();
-				$contactsQuery = "SELECT * FROM contacts_dump where filename = '" . $name . "'";
-				$contacts_resultSet = $resultSet = execSQL ( $DBResource, $contactsQuery );
-				if (mysql_num_rows ( $contacts_resultSet ) > 0) {
-					while ( $contacts_r = mysql_fetch_row ( $contacts_resultSet ) ) {
-						$contacts_row = new TempContact ();
-						$contacts_row->con_t_id = $contacts_r [0];
-						$contacts_row->src_id = $contacts_r [1];
-						$contacts_row->src_con_id = $contacts_r [2];
-						$contacts_row->con_first_name = $contacts_r [3];
-						$contacts_row->con_middle_name = $contacts_r [4];
-						$contacts_row->con_last_name = $contacts_r [5];
-						$contacts_row->con_salutation = $contacts_r [6];
-						$contacts_row->con_phone_no = $contacts_r [7];
-						$contacts_row->con_fax_no = $contacts_r [8];
-						$contacts_row->con_country = $contacts_r [9];
-						$contacts_row->con_zipcode = $contacts_r [10];
-						$contacts_row->con_email = $contacts_r [11];
-						array_push ( $contacts_data, $contacts_row );
-					} // end of while
-					
-				}*/ // end of if loop
-				
+				if (! empty ( $contacts )) {
+					$DBResource = getDBConnection ();
+					insertData ( $DBResource, $contacts );
+					closeDBConnection ( $DBResource );
+					if($recordsInvalid)
+						echo "File uploaded successfully (discarding invalid data)";
+					else 
+						echo "File uploaded successfully.";
+				}
+				// end of if loop
 			} // end of else loop for success
 		}  // end of the extension if loop
-	else {
+		else {
 			echo "Invalid file type or size exceeds the limit";
 		}
 	} // end of is file empty loop
-?>
+	?>

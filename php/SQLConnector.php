@@ -40,11 +40,10 @@
 	if($conn->multi_query($insertSql) === FALSE){
 		die("Error occured while executing the query".mysqli_error($conn));
 	}
+	}
 	
 	function closeDBConnection($conn){
 		mysqli_close($conn);
 	}
-	}
-	
  
 	?>

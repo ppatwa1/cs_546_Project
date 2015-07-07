@@ -30,8 +30,8 @@ deleteSelectedRow = function(){
 	// var i=1 to start after header
 	for(var i=1; i<rowCount; i++) {
 		var row = table.rows[i];
-		// index of td contain checkbox is 9
-		var chkbox = row.cells[9].getElementsByTagName('input')[0];
+		// index of td contain checkbox is 11
+		var chkbox = row.cells[11].getElementsByTagName('input')[0];
 		if('checkbox' == chkbox.type && true == chkbox.checked) {
 			table.deleteRow(i);
 		 }
@@ -49,7 +49,7 @@ createInput = function(i,str){
 	if(inputType[i] == "checkbox"){
 		input = '<input type='+inputType[i]+' name='+columns[i]+' >';
 	}
-	else if(columns[i] == "con_id[]" || columns[i] == "con_last_name[]" || columns[i] == "con_country[]" || columns[i] == "con_email[]" || columns[i] == "extract_date[]")
+	else if(columns[i] == "con_id[]" || columns[i] == "con_last_name[]" || columns[i] == "con_country[]" || columns[i] == "con_email[]")
 		input = '<input required="required" type='+inputType[i]+' name='+columns[i]+' placeholder="'+placeholder[i]+'" maxlength="'+inputLength[i]+'">';
 	else
 		input = '<input type='+inputType[i]+' name='+columns[i]+' placeholder="'+placeholder[i]+'" maxlength="'+inputLength[i]+'">';

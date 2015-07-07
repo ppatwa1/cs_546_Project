@@ -32,6 +32,8 @@ for($i=0; $i<count( $firstname ); $i++) {
 	$contact->con_zipcode = $zipcode [$i];
 	$contact->con_country = $country [$i];
 	$contact->con_created_date = $extract_date [$i];
+	if (is_null ( $contact->con_created_date ) || empty($contact->con_created_date))
+		$contact->con_created_date = date ( "m/d/y" );
 	$contact->src_id = $_SESSION['username'];
 	$contact->con_created_by = $_SESSION['username'];
 	
