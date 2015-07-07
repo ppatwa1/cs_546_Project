@@ -174,3 +174,9 @@ input[type=button] {
 #logoutBox{
 	margin-left:77%;
 }
+#uploadbtn input {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-size: 11pt;
+    padding: 5px 10px;
+}
