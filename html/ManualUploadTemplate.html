@@ -6,7 +6,8 @@
 	 // Column names must be identical to the actual column names in the database, if you dont want to reveal the column names, you can map them with the different names at the server side.
 	 var columns = new Array("con_id[]","con_salutation[]","con_first_name[]","con_middle_name[]","con_last_name[]","con_phone_no[]","con_fax_no[]","con_country[]","con_zipcode[]","con_email[]","extract_date[]","action[]");
 	 var placeholder = new Array("Contact ID","Salutation","First Name","Middle Name","Last Name", "Phone No", "Fax No", "Country", "Zip Code", "Email","Date(mm/dd/yy)");
-	 var inputType = new Array("text","text","text","text","text","text","text","text","text","text","text","checkbox");
+	 var inputType = new Array("text","text","text","text","text","tel","tel","text","number","email","text","checkbox");
+	 var inputLength = new Array(45,5,100,25,100,15,15,50,11,50);
 	 var table = "tableDemo";
 	 
 	 // Set button class names 
@@ -21,6 +22,8 @@
 	 var deleteImage = "images/remove.png"
 	 var cancelImage = "images/back.png"
 	 var updateImage = "images/save.png"
+	 
+	 
 
 	 // Set highlight animation delay (higher the value longer will be the animation)
 	 var saveAnimationDelay = 3000; 
@@ -34,6 +37,7 @@
   <script src="../js/jquery-ui.js"></script>	
   <script src="../js/contactsScript.js"></script>	
   <link rel="stylesheet" href="../css/manualTemplate.css">
+  <link rel="stylesheet" href="../css/jquery-ui.css">
  </head>
  
  <body>

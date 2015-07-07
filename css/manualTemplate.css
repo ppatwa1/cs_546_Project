@@ -165,17 +165,21 @@ a{
 }
 
 .leftNav {
-    width:200px;
+	margin-left:350px;
+    width:150px;
     float:left;
     border: 1px solid;
 }
 
 .rightPara{
-    margin-left:210px;
+    margin-right:350px;
     float:right;
     border: 1px solid;
 }
 #content input[type="button"] {
+    background: rgba(0, 0, 0, 0) linear-gradient(#ffffff, #dfdfdf) repeat scroll 0 0;
+}
+#content input[type="submit"] {
     background: rgba(0, 0, 0, 0) linear-gradient(#ffffff, #dfdfdf) repeat scroll 0 0;
 }
 #content input {

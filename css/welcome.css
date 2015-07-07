@@ -69,7 +69,7 @@ a{
 }
 
 .rightPara{
-    margin-left:210px;
+    margin-right:50px;
 }
 #content input[type="button"] {
     background: rgba(0, 0, 0, 0) linear-gradient(#ffffff, #dfdfdf) repeat scroll 0 0;

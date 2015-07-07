@@ -19,6 +19,7 @@ $email = $_POST ['con_email'];
 $extract_date = $_POST['extract_date'];
 
 for($i=0; $i<count( $firstname ); $i++) {
+	
 	$contact = new TempContact ();
 	$contact->src_con_id = $conid [$i];
 	$contact->con_salutation = $salutation [$i];
@@ -33,8 +34,11 @@ for($i=0; $i<count( $firstname ); $i++) {
 	$contact->con_created_date = $extract_date [$i];
 	$contact->src_id = $_SESSION['username'];
 	$contact->con_created_by = $_SESSION['username'];
+	
 	array_push ( $contacts, $contact );
-}
+	}//end of if loop
+
+ 
 
 	if(insertData(getDBConnection(),$contacts))
 		header ( "Location: ../html/ManualUploadTemplate.html" );

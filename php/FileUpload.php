@@ -53,13 +53,11 @@ session_start ();
 				exit ();
 			} else {
 				// set proper permissions on the new file
-				chmod ( $csvFile, 0644 );
+				chmod ( $csvFile, 0644 );	
 				$csv = readCSV ( $csvFile ); // $csv is a array
-				
-				array_shift ( $csv ); // Remove header from the array
-				$contacts = array ();
-				
-				foreach ( $csv as $rowValues ) {
+				$headers = array_shift($csv);
+				$contacts = array();
+				foreach($csv as $rowValues) {
 					$contact = new TempContact ();
 					$contact->con_salutation = $rowValues [0];
 					$contact->con_first_name = $rowValues [1];
@@ -77,7 +75,7 @@ session_start ();
 					array_push ( $contacts, $contact );
 				}
 				
-				$DBResource = getDBConnection ();
+				$DBResource = getDBConnection();
 				insertData ($DBResource, $contacts);
 				closeDBConnection($DBResource);
 				
