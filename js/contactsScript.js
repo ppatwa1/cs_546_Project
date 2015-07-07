@@ -37,6 +37,30 @@ deleteSelectedRow = function(){
 		 }
 	}
 }
+selectAllRows = function(){
+	var table = document.getElementById("contactsTable");
+	var rowLength = table.rows.length;
+	for(var i=rowLength-1; i>0; i-=1){
+	  var row = table.rows[i];
+	  var cellLength = row.cells.length;
+	  var chkbox = row.cells[11].getElementsByTagName('input')[0];
+	  if('checkbox' == chkbox.type) {
+			chkbox.checked = true;
+		 }
+	}
+}
+delectAllRows = function(){
+	var table = document.getElementById("contactsTable");
+	var rowLength = table.rows.length;
+	for(var i=rowLength-1; i>0; i-=1){
+	  var row = table.rows[i];
+	  var cellLength = row.cells.length;
+	  var chkbox = row.cells[11].getElementsByTagName('input')[0];
+	  if('checkbox' == chkbox.type) {
+			chkbox.checked = false;
+		 }
+	}
+}
 
 uploadContacts = function(){
 	//upload the contacts from here
@@ -57,18 +81,3 @@ createInput = function(i,str){
 	return input;
 }
 
-function selectAll(){
-	var allcheckbox = document.getElementById("selectall");
-	var table = document.getElementById("contactsTable").tBodies[0];
-	var rowCount = table.rows.length;
-	alert(rowCount);
-	for(var i=1; i<rowCount; i++) {
-		var row = table.rows[i];
-		// index of td contain checkbox is 11
-		var chkbox = row.cells[11].getElementsByTagName('input')[0];
-		if(allcheckbox.checked) 
-			chkbox.checked = true;
-		else
-			chkbox.checked = false;
-	}
-}

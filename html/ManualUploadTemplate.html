@@ -63,12 +63,14 @@
 			<th width="7%">Zip Code</th>
 			<th width="23%">Email</th>
 			<th width="23%">Date(mm/dd/yy)</th>
-			<th width="2%">Action<br/><input type=checkbox 	name="selectall" id="selectall" onclick="selectAll()"></th>
+			<th width="2%">Action<br/></th>
 		</tr>
 	</table> 
 	<div id="content">
 		<input class="leftNav" type="button" onclick="addNewRow()" value="Add New Row">
-		<input type="button" onclick="deleteSelectedRow()" value="Delete Selected Rows">
+		<input  type="button" onclick="deleteSelectedRow()" value="Delete Selected Rows">
+		<input  type="button" onclick="selectAllRows()" value="Select All Rows">
+		<input  type="button" onclick="delectAllRows()" value="Deselect All Rows">
 		<input class="rightPara" type="submit" name="Save Contacts" value="Save Contacts">
 	</div> 	
 	</form>
