@@ -26,7 +26,6 @@ addNewRow = function(){
 deleteSelectedRow = function(){
 	var table = document.getElementById("contactsTable").tBodies[0];
 	var rowCount = table.rows.length;
-	alert(rowCount);
 	// var i=1 to start after header
 	for(var i=1; i<rowCount; i++) {
 		var row = table.rows[i];
