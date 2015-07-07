@@ -1,8 +1,11 @@
 <?php
 session_start ();
+
+require_once ("../model/TempContact.php");
+
 require_once ("Config.php");
-require_once '../model/TempContact.php';
-require_once '../php/SQLConnector.php';
+require_once ("SQLConnector.php");
+require_once ("Matching.php");
 
 $contacts = array ();
 
@@ -42,7 +45,9 @@ for($i=0; $i<count( $firstname ); $i++) {
 
  
 
-	if(insertData(getDBConnection(),$contacts))
-		header ( "Location: ../html/ManualUploadTemplate.html" );
+	insertData(getDBConnection(),$contacts);
+	runMatching($contacts);
+	header ( "Location: ../html/ManualUploadTemplate.html" );
+	
 
 ?>

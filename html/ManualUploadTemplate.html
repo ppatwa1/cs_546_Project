@@ -42,8 +42,8 @@
  
  <body>
  <div id="logoutBox">
- <a id="logout" href="../php/Logout.php" class="">Logout</a>
  <a id="logout" href="../php/Welcome.php" class="">Home</a>
+ <a id="logout" href="../php/Logout.php" class="">Logout</a>
   </div>
   
  	<div class="container">
@@ -52,7 +52,7 @@
 		<form action="../php/ManualUpload.php" method="POST" enctype="multipart/form-data">
 	<table id="contactsTable" border="0" class="tableDemo bordered">
 		<tr class="ajaxTitle">
-			<th width="15%">ID</th>
+			<th width="15%">Contact ID</th>
 			<th width="2%">Salutation</th>
 			<th width="15%">First Name</th>
 			<th width="9%">Middle Name</th>
@@ -63,7 +63,7 @@
 			<th width="7%">Zip Code</th>
 			<th width="23%">Email</th>
 			<th width="23%">Date(mm/dd/yy)</th>
-			<th width="2%">Action</th>
+			<th width="2%">Action<br/><input type=checkbox 	name="selectall" id="selectall" onclick="selectAll()"></th>
 		</tr>
 	</table> 
 	<div id="content">

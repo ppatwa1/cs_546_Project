@@ -1,7 +1,10 @@
 	<?php
 	include ('../model/TempContact.php');
+	
 	require_once ("SQLConnector.php");
 	require_once ("Config.php");
+	require_once ("Matching.php");
+	
 	session_start ();
 	
 	function readCSV($csvFile) {
@@ -15,7 +18,7 @@
 	
 	function validateContact($contact) {
 		
-		if (strlen ( trim ( $contact->src_con_id ) ) > 45)
+		if (strlen ( trim ( $contact->src_con_id ) ) > 45 || empty($contact->src_con_id))
 			return false;
 		if (strlen ( trim ( $contact->con_first_name ) ) > 100)
 			return false;
@@ -85,7 +88,7 @@
 				$csv = readCSV ( $csvFile ); // $csv is a array
 				$headers = array_shift ( $csv );
 				if (count ( $headers ) != 11)
-					die ( "File Invalid" );
+					die ( "Uploaded file has missing columns" );
 				
 				$contacts = array ();
 				$recordsInvalid = false;
@@ -100,7 +103,7 @@
 						$contact->con_email = $rowValues [4];
 						$contact->con_phone_no = $rowValues [5];
 						$contact->con_fax_no = $rowValues [6];
-						$contact->con_src_con_id = $rowValues [7];
+						$contact->src_con_id = $rowValues [7];
 						$contact->con_zipcode = $rowValues [8];
 						$contact->con_country = $rowValues [9];
 						$contact->con_created_date = $rowValues [10];
@@ -112,7 +115,7 @@
 						if (validateContact ( $contact ))
 							array_push ( $contacts, $contact );
 						else 
-							$recordsInvalid = true;;
+							$recordsInvalid = true;
 					}
 				}
 				
@@ -120,11 +123,14 @@
 					$DBResource = getDBConnection ();
 					insertData ( $DBResource, $contacts );
 					closeDBConnection ( $DBResource );
+					runMatching($contacts);
 					if($recordsInvalid)
 						echo "File uploaded successfully (discarding invalid data)";
 					else 
 						echo "File uploaded successfully.";
-				}
+				}else
+						echo "No records uploaded.";
+				
 				// end of if loop
 			} // end of else loop for success
 		}  // end of the extension if loop

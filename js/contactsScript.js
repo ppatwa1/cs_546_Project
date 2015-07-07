@@ -26,7 +26,7 @@ addNewRow = function(){
 deleteSelectedRow = function(){
 	var table = document.getElementById("contactsTable").tBodies[0];
 	var rowCount = table.rows.length;
-
+	alert(rowCount);
 	// var i=1 to start after header
 	for(var i=1; i<rowCount; i++) {
 		var row = table.rows[i];
@@ -57,8 +57,18 @@ createInput = function(i,str){
 	return input;
 }
 
-validateFields = function($contact){
-	
-	
-	
+function selectAll(){
+	var allcheckbox = document.getElementById("selectall");
+	var table = document.getElementById("contactsTable").tBodies[0];
+	var rowCount = table.rows.length;
+	alert(rowCount);
+	for(var i=1; i<rowCount; i++) {
+		var row = table.rows[i];
+		// index of td contain checkbox is 11
+		var chkbox = row.cells[11].getElementsByTagName('input')[0];
+		if(allcheckbox.checked) 
+			chkbox.checked = true;
+		else
+			chkbox.checked = false;
+	}
 }

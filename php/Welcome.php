@@ -17,7 +17,7 @@
                         <h3>Please select from the below options to add contacts</h3>
 
                    <div id="content">
-					   <a href="../html/ManualUploadTemplate.html" class="leftNav buttonAnchor">Manual Template</a>
+					   <a href="../html/ManualUploadTemplate.html" class="leftNav buttonAnchor">Manual Upload</a>
 					   <a href="../html/FileUploadTemplate.html" class="rightPara buttonAnchor">File Upload</a>
 					</div> 
                 </div>  
